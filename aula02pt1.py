@@ -1,6 +1,6 @@
 #------------------------
 
-#Aula02
+#Aula02 pt 1
 
 # comando input(): permitir que o user digite algo
 # e Variáveis
