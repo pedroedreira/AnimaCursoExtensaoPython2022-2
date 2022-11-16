@@ -1,37 +1,22 @@
-#Criação de funções
+#1°passo - Importar biblioteca sqlite3
+import sqlite3
 
-preco = 1999.90
+#2°passo - Estabelecer conexão com o banco de dados
+conexao = sqlite3.connect("dc_universe.db")
 
-#Calcular apenas 5% de imposto, guardar na variavel imposto e exibir na tela
-imposto = preco * 0.05
-print(imposto)
+#3°passo - Criar o cursor  
+cursor = conexao.cursor()
 
-preco2 = 100
-imposto2 = preco2 * 0.05
-print(imposto2)
+#4°passo - Comando SQL do Banco
+sql = "SELECT pessoa_id, nome, nome_civil, tipo FROM pessoas"
 
-#Criar uma função calcular_imposto() que calcular um imposto de 5% e retorna a quem pediu...
-#Isso é a declaração da função (Como ela funciona)
-def calcular_imposto(preco_produto):
-  imposto = preco_produto * 0.05
-  return imposto
+#5°passo - Execução do comando no banco (SQL no SQLITE - no cursor)
+cursor.execute(sql)
 
-#Aqui é o uso... aqui é imposto a calcular.. e exibir na tela
-preco = 299
-imposto = calcular_imposto(preco)
-print(f"Esse é com a função (7%): {imposto}")
+#6°passo - Exibir a consulta com os dados da base
+pessoas = cursor.fetchall()
+for pessoa in pessoas:
+  print(pessoa)
 
-#Calcular imposto de varios valores(1o Preço 2° Imposto))
-valores = [100, 200, 300, 400]
-
-for valor in valores:
-  print(f"O imposto de {valor} é {calcular_imposto(valor)}")
-
-#Declarar uma função calcular_imposto_aliquota que recebe dois parametros: o preço do produto e a alíquota de imposto a ser aplicada e retorna o imposto calculado. Se a aliquota não for informada, utilize 7% como padrão.
-
-def calcular_imposto_aliquota(valor, aliquota=7):
-  imposto = valor * (aliquota / 100)
-  return imposto
-
-for valor in valores:
-  print(f"O imposto de {valor} é {calcular_imposto_aliquota(valor)}")
+for pessoa in pessoas:
+  print(f"Nome: {pessoa[1]} ({pessoa[3]})")
